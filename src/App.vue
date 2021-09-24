@@ -303,7 +303,6 @@ export default{
 
 h1{
   font-size:40px;
-  background-color: beige;
   width: 100%;
   text-align: center;
   box-shadow: inset;
