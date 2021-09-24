@@ -1,6 +1,6 @@
 <template>
   <div id="tudo">
-    <h1>Gerenciador de ativos</h1>
+    <h1>Ordens e Posições</h1>
   <div id='conteiner-tudo'>
     <div id="conteiner-tablela-ordens">
       <table id="tabela-ordens">
