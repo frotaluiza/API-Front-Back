@@ -282,6 +282,25 @@ export default{
 
 
 <style>
+@media (max-width: 621px){
+  :root{
+    width:100vw;
+  }
+  #conteiner-tudo,h1{
+    position:relative;
+    right: 10px;
+    width:50%;
+    margin-right: 13vw ;
+  }
+  
+  h1{
+    position:relative;
+    font-size: 30px;
+    left: 16px;
+    
+  }
+}
+
 h1{
   font-size:40px;
   background-color: beige;
