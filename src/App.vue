@@ -22,7 +22,7 @@
           <tr v-for="ordem of ordens" :key="ordem.idOrdem">
 
             <td>{{ idAtivo(ordem.fkIdAtivo) }}</td>
-            <td>{{ ordem.quantidade }}</td>
+            <td>{{ menos(ordem.quantidade,ordem.classeNegociacao) }}</td>
             <td>{{ ordem.preco }}</td>
             <td>{{ data(ordem.data) }}</td>
             <td>{{ classe(ordem.classeNegociacao) }}</td>
@@ -258,6 +258,14 @@ export default{
       else{
         return "Venda"
       }
+    },
+    menos(quant,classe){
+      if(classe == "c"){
+        return quant
+      }
+      else{
+        return "-"+quant
+      }
     }
     
 
@@ -274,6 +282,16 @@ export default{
 
 
 <style>
+h1{
+  font-size:40px;
+  background-color: beige;
+  width: 100%;
+  text-align: center;
+  box-shadow: inset;
+  position:relative;
+  top:-32px;
+  padding:10px;
+}
 h2{
   font-size: 20px;
   text-align: center;
