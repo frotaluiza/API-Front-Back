@@ -40,15 +40,17 @@
    <div id="cadastro-posicao">
     <div id="conteiner-cadastro">
       
-     
+      
       <form @submit.prevent=" (mudar() &  salvar()) ">
- 
+  
    <label id="materialize-select">Ativo</label>
     <div id="input-select" class="input-field col s12">
-     <v-select v-model="ordem.fkIdAtivo" label="descricao" :options="criaLista()" :reduce="ativo => ativo.idAtivo" value="idAtivo"> </v-select>
-
-  
-   
+      
+    <select class="browser-default" v-model="ordem.fkIdAtivo" >
+      <option  disabled selected>Escolha o ativo</option>
+      <option value="1" >PETRO4</option>
+      <option value="2">INDV3</option>
+    </select>
     
   </div>
  
@@ -89,15 +91,15 @@
     <div class="col-sm-10">
       <button type="submit" class="btn btn-primary">Enviar</button>
     </div>
-      </form>
 
-      <table id="tabela-soma">
+      </form>
+      <table >
 
         <thead>
 
           <tr>
-            <th>Ativo</th>
-            <th>posicao</th>
+            <th>PETRO4</th>
+            <th>INDV3</th>
             
           </tr>
 
@@ -105,13 +107,13 @@
 
         <tbody>
 
-          <tr v-for="(objeto,index) in this.soma" :key="index">
-            <td>{{ idAtivo(objeto.fk_id_ativo) }}</td>
-            <td>{{ objeto.somaPorId }}</td>
-            
-            
-            
+          <tr >
 
+            <td>{{veri0()}}</td>
+            <td>{{veri1 ()}}</td>
+            
+            
+            
           </tr>
 
         </tbody>
@@ -124,13 +126,15 @@
   </div>
 </template>
 
-
+<script src="jquery-3.5.1.min.js"></script>
 
 <script >
 
 
 
-
+ $(document).ready(function(){
+    $('select').formSelect();
+  });
 
 
 import Ordens from './services/ordens'
@@ -153,48 +157,24 @@ export default{
       },
       ordens: [],
       soma:{
-        fk_id_ativo:'',
+        
         somaPorId: ''
         
       },
-      DataRel: '',
-      ativo:{
-        idAtivo:'',
-        descricao:'',
-        loteMinimo:''
-      }
+      DataRel: ''
 
     }
   },
 
   mounted(){
     this.listar()
-    this.listarAt()
   },
 
   methods:{
-    criaLista(){
-      let lista=[];
-      let obj = this.ativo.map((item)=>{
-        lista.push(item)
-      })
-      console.log(obj)
-      return lista
-    },
-
     listar(){
       Ordens.listar().then(resposta => {
       this.ordens = resposta.data
-      console.log(this.ordens)
     })
-    },
-
-    listarAt(){
-      Ordens.listarAtivos().then(resposta => {
-        this.ativo = resposta.data
-        console.log(this.ativo)
-        console.log(Object.entries(this.ativo))
-      })
     },
 
 
@@ -242,19 +222,29 @@ export default{
           this.soma = resposta.data
         })
     },
-    
+    veri0(){
+      if(Object.keys(this.soma).length==1 && this.soma.somaPorId==''){
+        return this.soma.somaPorId
+      }
+      else{
+        return this.soma[0].somaPorId 
+      }
+    },
+    veri1(){
+      if(Object.keys(this.soma).length==1){
+        return this.soma.somaPorId
+      }
+      else{
+        return this.soma[1].somaPorId
+      }
+    },
     idAtivo(idAtivo){
-      let retorno = ""
-      const le = this.ativo.map((item)=>{
-        if (item.idAtivo == idAtivo){
-          console.log(le,item.descricao)
-          retorno = item.descricao
-        }
-     
-       
-      })
-       return retorno
-      
+      if (idAtivo == 1){
+        return "PETRO4"
+      }
+      else{
+        return "INDV3"
+      }
     },
     data(data){
       if(data){
@@ -311,12 +301,8 @@ export default{
   }
 }
 
-
-
-
 h1{
   font-size:40px;
-  
   width: 100%;
   text-align: center;
   box-shadow: inset;
@@ -372,4 +358,3 @@ h2{
 
 
 </style>
-
